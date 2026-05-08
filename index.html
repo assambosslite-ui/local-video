@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="as">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assamese Local Video - Streaming</title>
+    <style>
+        /* CSS Styling - Dark Theme */
+        :root {
+            --primary-color: #ff0055; /* Accent color */
+            --bg-color: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-color: #eeeeee;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Section */
+        header {
+            background-color: #111;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 22px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Video Player Area */
+        .player-wrapper {
+            width: 100%;
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 10px;
+            box-sizing: border-box;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            background: #000;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-info-box {
+            margin-top: 15px;
+            padding: 0 5px;
+        }
+
+        #current-video-title {
+            font-size: 20px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* Video List/Grid Section */
+        .content-section {
+            padding: 20px 5%;
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        /* Video Card Styling */
+        .video-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #222;
+        }
+
+        .video-card:hover {
+            transform: scale(1.03);
+            border-color: var(--primary-color);
+        }
+
+        .thumb-box {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .video-card h4 {
+            padding: 10px;
+            margin: 0;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* For Mobile responsive */
+        @media (max-width: 600px) {
+            header h1 { font-size: 18px; }
+            .video-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Assamese Local Video</h1>
+    </header>
+
+    <div class="player-wrapper">
+        <div class="video-container">
+            <iframe id="main-player" src="https://mega.nz/embed/w2dXAYxK#dbZ7rG4xYBAuEoqC3R4uVYKS1YGGMw8EImPSUhMkJc" allowfullscreen></iframe>
+        </div>
+        <div class="video-info-box">
+            <h2 id="current-video-title">Select a video to play</h2>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h3 class="section-title">Latest Uploads</h3>
+        <div class="video-grid">
+            
+            <div class="video-card" onclick="changeVideo('https://mega.nz/embed/w2dXAYxK#dbZ7rG4xYBAuEoqC3R4uVYKS1YGGMw8EImPSUhMkJc', 'Assamese Local Video 01')">
+                <div class="thumb-box" style="background-image: url('https://via.placeholder.com/300x169/333/ff0055?text=Video+1');"></div>
+                <h4>Assamese Local Video 01</h4>
+            </div>
+
+            <div class="video-card" onclick="changeVideo('https://mega.nz/embed/EXAMPLE_ID#KEY', 'Assamese Local Video 02')">
+                <div class="thumb-box" style="background-image: url('https://via.placeholder.com/300x169/333/ff0055?text=Video+2');"></div>
+                <h4>Assamese Local Video 02</h4>
+            </div>
+
+            <div class="video-card" onclick="changeVideo('https://mega.nz/embed/EXAMPLE_ID#KEY', 'Assamese Local Video 03')">
+                <div class="thumb-box" style="background-image: url('https://via.placeholder.com/300x169/333/ff0055?text=Video+3');"></div>
+                <h4>Assamese Local Video 03</h4>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // JavaScript function to switch videos
+        function changeVideo(url, title) {
+            const player = document.getElementById('main-player');
+            const titleDisplay = document.getElementById('current-video-title');
+            
+            // Set new source and title
+            player.src = url;
+            titleDisplay.innerText = title;
+
+            // Scroll to top to see the player
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
